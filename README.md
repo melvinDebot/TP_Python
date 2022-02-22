@@ -28,25 +28,25 @@ len(li_stock)
 
 #### Get all items
 
-```http
+```bash
   GET /list
 ```
 
 #### Get item
 
-```http
+```bash
   POST /add
 ```
 
 #### Put item
 
-```http
+```bash
   PUT /update
 ```
 
 #### Delete item
 
-```http
+```bash
   DELETE /delete
 ```
 

@@ -37,13 +37,11 @@ class TestApi(unittest.TestCase):
 
     def test_post_api(self):
         with app.test_client() as client:
-            # send data as POST form to endpoint
             sent = {"noteee": "One", "price": "53.74", "stock": "7"}
             result = client.post(
                 '/add',
                 data=sent
             )
-            # check result from server with expected data
             print(json.dumps(sent))
             self.assertEqual(
                 result.data,
@@ -52,13 +50,11 @@ class TestApi(unittest.TestCase):
 
     def test_put_api(self):
         with app.test_client() as client:
-            # send data as POST form to endpoint
             sent = {"noteee": "One", "price": "53.74", "stock": "7"}
             result = client.put(
                 '/update',
                 data=sent
             )
-            # check result from server with expected data
             print(json.dumps(sent))
             self.assertEqual(
                 result.data,

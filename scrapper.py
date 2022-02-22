@@ -48,9 +48,9 @@ len(li_notes)
 di = {"title": li_title, "price": li_price, "note": li_notes, "stock": li_stock}
 
 df = pd.DataFrame(di)
-print('')
-print('------------ DATA SCRPPER -------------')
-print(df)
+# print('')
+# print('------------ DATA SCRPPER -------------')
+# print(df)
 
 for i in range(1, len(di)+1):
     db.collection('todos').add(df.to_dict('records')[i])
@@ -120,8 +120,6 @@ def delete():
         return f"An Error Occured: {e}"
 
 
-print('')
-print('------------ API -------------')
 port = int(os.environ.get('PORT', 8080))
 if __name__ == '__main__':
     app.run(threaded=True, host='0.0.0.0', port=port)
