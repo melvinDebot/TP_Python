@@ -29,58 +29,52 @@ len(li_stock)
 #### Get all items
 
 ```http
-  GET http://192.168.1.21:8080/list
+  GET /list
 ```
-
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `port` | `string` | **Required**. Your IP |
 
 #### Get item
 
 ```http
-  POST http://192.168.1.21:8080/add
+  POST /add
 ```
-
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `port` | `string` | **Required**. Your IP |
 
 #### Put item
 
 ```http
-  PUT http://192.168.1.21:8080/update
+  PUT /update
 ```
-
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `port` | `string` | **Required**. Your IP |
 
 #### Delete item
 
 ```http
-  DELETE http://192.168.1.21:8080/delete/
+  DELETE /delete
 ```
 
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `port` | `string` | **Required**. Your IP |
+## Running Test
 
+To run test, run the following command
 
-
-Takes two numbers and returns the sum.
+```python
+  python3 scrapper_test.py
+```
 
 ## Test unitaire example
 
 ```python
-  class Test_Scrappe(unittest.TestCase):
-    def setUp(self):
-        self.fake_data_scrappe = {'title': 'melvin', 'statut': True}
-
-    
-    def get_call_api(self):
-        create()
-        self.assertTrue(self.fake_data_scrappe['statut'], True)
+  def test_read_api(self):
+    with app.test_client() as client:
+      # send data as POST form to endpoint
+      sent = {"note": "One", "test": "53.74", "stock": "7"}
+      result = client.get(
+        '/list',
+        data=sent 
+      )
+      # check result from server with expected data
+      print(json.dumps(sent))
+      self.assertEqual(
+        result.data,
+        json.dumps(sent)
+      )
 ```
 ## Tech Stack
 
