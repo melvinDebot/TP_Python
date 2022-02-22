@@ -5,8 +5,6 @@ import requests
 import os
 from flask import Flask, request, jsonify
 from firebase_admin import credentials, firestore, initialize_app
-import unittest
-from unittest.mock import Mock
 
 
 # Initialize Flask App
@@ -54,7 +52,6 @@ print('')
 print('------------ DATA SCRPPER -------------')
 print(df)
 
-#print(di)
 for i in range(1, len(di)+1):
     db.collection('todos').add(df.to_dict('records')[i])
 
@@ -124,31 +121,8 @@ def delete():
 
 
 print('')
-print('------------ TEST UNITAIRE SCRAPPE -------------')
-
-class Test_Scrappe(unittest.TestCase):
-    def setUp(self):
-        self.fake_data_scrappe = {'title': 'melvin', 'statut': True}
-
-    
-    def get_call_api(self):
-        create()
-        self.assertTrue(self.fake_data_scrappe['statut'], True)
-
-print('')
 print('------------ API -------------')
 port = int(os.environ.get('PORT', 8080))
 if __name__ == '__main__':
     app.run(threaded=True, host='0.0.0.0', port=port)
-
-
-
-
-
-
-
-
-
-
-
-
+    
