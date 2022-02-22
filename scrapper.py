@@ -1,22 +1,12 @@
-from crypt import methods
-import time
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
+# Required Imports
 import pandas as pd
-
-import json
-
 from bs4 import BeautifulSoup
 import requests
-
-from pprint import pprint
-
-# app.py
-# Required Imports
 import os
-import json
 from flask import Flask, request, jsonify
 from firebase_admin import credentials, firestore, initialize_app
+import unittest
+from unittest.mock import Mock
 
 
 # Initialize Flask App
@@ -26,7 +16,6 @@ cred = credentials.Certificate('key.json')
 default_app = initialize_app(cred)
 db = firestore.client()
 todo_ref = db.collection('todos')
-
 
 r = requests.get('http://books.toscrape.com/')
 soup = BeautifulSoup(r.content)
@@ -59,12 +48,11 @@ for x in soup.find_all({'li'}, {'class': 'col-xs-6 col-sm-4 col-md-3 col-lg-3'},
 len(li_notes)
 
 di = {"title": li_title, "price": li_price, "note": li_notes, "stock": li_stock}
-#pprint(di)
 
 df = pd.DataFrame(di)
-
 print('')
-print('------------ JSON -------------')
+print('------------ DATA SCRPPER -------------')
+print(df)
 
 #print(di)
 for i in range(1, len(di)+1):
@@ -135,6 +123,20 @@ def delete():
         return f"An Error Occured: {e}"
 
 
+print('')
+print('------------ TEST UNITAIRE SCRAPPE -------------')
+
+class Test_Scrappe(unittest.TestCase):
+    def setUp(self):
+        self.fake_data_scrappe = {'title': 'melvin', 'statut': True}
+
+    
+    def get_call_api(self):
+        create()
+        self.assertTrue(self.fake_data_scrappe['statut'], True)
+
+print('')
+print('------------ API -------------')
 port = int(os.environ.get('PORT', 8080))
 if __name__ == '__main__':
     app.run(threaded=True, host='0.0.0.0', port=port)
