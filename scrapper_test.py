@@ -42,6 +42,13 @@ class TestApi(unittest.TestCase):
         self.assertEqual(result.data, b'{"success":true}\n')
         self.assertEqual(result.status_code, 200)
 
+    def test_delete_api(self):
+        result = app.test_client().delete(
+            '/delete', json={'note': 'huit', 'price': '42.80', 'stock': 'inStock', 'title': 'Maxime'})
+
+        self.assertEqual(result.data, b'{"success":true}\n')
+
 
 if __name__ == '__main__':
     unittest.main()
+
