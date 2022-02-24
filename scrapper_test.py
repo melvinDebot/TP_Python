@@ -1,5 +1,7 @@
 import json
 import unittest
+
+from flask import make_response, jsonify
 from scrapper import app, di
 
 app.testing = True
@@ -20,46 +22,32 @@ class TestApi(unittest.TestCase):
     def test_data_scrapper(self):
         self.assertEqual(di, mockObject)
 
-    def test_read_api(self):
+    def test_get_api(self):
         with app.test_client() as client:
-            # send data as POST form to endpoint
-            sent = {"note": "One", "test": "53.74", "stock": "7"}
             result = client.get(
                 '/list',
-                data=sent 
             )
-            # check result from server with expected data
-            print(json.dumps(sent))
-            self.assertEqual(
-                result.data,
-                json.dumps(sent)
-            )
+            # Check the status of the call if it is a 200
+            self.assertEqual(result.status_code, 200)
 
     def test_post_api(self):
-        with app.test_client() as client:
-            sent = {"noteee": "One", "price": "53.74", "stock": "7"}
-            result = client.post(
-                '/add',
-                data=sent
-            )
-            print(json.dumps(sent))
-            self.assertEqual(
-                result.data,
-                json.dumps(sent)
-            )
+        result = app.test_client().post(
+            '/add', json={'note': 'huit', 'price': '42.80','stock': 'inStock', 'title': 'Max'})
+        self.assertEqual(result.status_code, 200)
+        self.assertEqual(json.dumps(result.json), '{"success": true}')
+
 
     def test_put_api(self):
-        with app.test_client() as client:
-            sent = {"noteee": "One", "price": "53.74", "stock": "7"}
-            result = client.put(
-                '/update',
-                data=sent
-            )
-            print(json.dumps(sent))
-            self.assertEqual(
-                result.data,
-                json.dumps(sent)
-            )
+        result = app.test_client().put(
+            '/update', json={'note': '679', 'price': '42.80', 'stock': 'inStock', 'title': 'Maxime'})
+
+        self.assertEqual(result.status_code, 200)
+
+    def test_delete_api(self):
+        result = app.test_client().delete(
+            '/update', json={'note': 'huit', 'price': '42.80', 'stock': 'inStock', 'title': 'Maxime'})
+
+        self.assertEqual(result.status_code, 200)
 
 
 if __name__ == '__main__':
