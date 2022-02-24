@@ -37,7 +37,7 @@ class TestApi(unittest.TestCase):
 
     def test_put_api(self):
         result = app.test_client().put(
-            '/update', json={'note': '890', 'price': '42.80', 'stock': 'inStock', 'title': 'Maxime'})
+            '/update', json={'note': 'huit', 'price': '42.80', 'stock': 'inStock', 'title': 'Maxime'})
 
         self.assertEqual(result.data, b'{"success":true}\n')
         self.assertEqual(result.status_code, 200)

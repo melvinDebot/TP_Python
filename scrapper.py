@@ -48,10 +48,8 @@ len(li_notes)
 di = {"title": li_title, "price": li_price, "note": li_notes, "stock": li_stock}
 
 df = pd.DataFrame(di)
-# print('')
-# print('------------ DATA SCRPPER -------------')
-# print(df)
 
+# Sending scraper data to my database
 for i in range(1, len(di)+1):
     db.collection('todos').add(df.to_dict('records')[i])
 
