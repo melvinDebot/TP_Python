@@ -11,12 +11,11 @@ mockObject = {'title': ['A Light in the Attic', 'Tipping the Velvet', 'Soumissio
 
 
 # use of false value to show that api call verification works
-print('')
-print('------------ TEST UNITAIRE -------------')
+
+
 class TestApi(unittest.TestCase):
 
     def setUp(self):
-
         pass
 
     def test_data_scrapper(self):
@@ -32,21 +31,15 @@ class TestApi(unittest.TestCase):
 
     def test_post_api(self):
         result = app.test_client().post(
-            '/add', json={'note': 'huit', 'price': '42.80','stock': 'inStock', 'title': 'Max'})
+            '/add', json={'note': 'huit', 'price': '42.80', 'stock': 'inStock', 'title': 'Max'})
         self.assertEqual(result.status_code, 200)
         self.assertEqual(json.dumps(result.json), '{"success": true}')
 
-
     def test_put_api(self):
         result = app.test_client().put(
-            '/update', json={'note': '679', 'price': '42.80', 'stock': 'inStock', 'title': 'Maxime'})
+            '/update', json={'note': '890', 'price': '42.80', 'stock': 'inStock', 'title': 'Maxime'})
 
-        self.assertEqual(result.status_code, 200)
-
-    def test_delete_api(self):
-        result = app.test_client().delete(
-            '/update', json={'note': 'huit', 'price': '42.80', 'stock': 'inStock', 'title': 'Maxime'})
-
+        self.assertEqual(result.data, b'{"success":true}\n')
         self.assertEqual(result.status_code, 200)
 
 

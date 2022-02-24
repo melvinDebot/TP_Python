@@ -56,21 +56,6 @@ for i in range(1, len(di)+1):
     db.collection('todos').add(df.to_dict('records')[i])
 
 
-@app.route('/add', methods=['POST'])
-def create():
-    """
-        create() : Add document to Firestore collection with request body
-        Ensure you pass a custom ID as part of json body in post request
-        e.g. json={'note': 'six', 'price': '42.80', 'stock': 'inStock, 'title': 'melvin'}
-    """
-    try:
-        id = request.json['note']
-        todo_ref.document(id).set(request.json)
-        return jsonify({"success": True}), 200
-    except Exception as e:
-        return f"An Error Occured: {e}"
-
-
 @app.route('/list', methods=['GET'])
 def read():
     """
@@ -89,6 +74,25 @@ def read():
             return jsonify(all_todos), 200
     except Exception as e:
         return f"An Error Occured: {e}"
+
+        
+
+@app.route('/add', methods=['POST'])
+def create():
+    """
+        create() : Add document to Firestore collection with request body
+        Ensure you pass a custom ID as part of json body in post request
+        e.g. json={'note': 'six', 'price': '42.80', 'stock': 'inStock, 'title': 'melvin'}
+    """
+    try:
+        id = request.json['note']
+        todo_ref.document(id).set(request.json)
+        return jsonify({"success": True}), 200
+    except Exception as e:
+        return f"An Error Occured: {e}"
+
+
+
 
 
 @app.route('/update', methods=['POST', 'PUT'])
