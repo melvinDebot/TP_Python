@@ -1,12 +1,6 @@
 
 # TP PYTHON
 
-Create a db capable of receiving scrapper values and then design an api capable of interacting with the db : it should be able to ingest / read / update / delete.
-Make two test modules
-One to check that your script can send the scrapper data to the api and a second one to test that the api can send / read / delete / update / the data
-in the database
-
-
 ## Running File
 
 To run file, run the following command
